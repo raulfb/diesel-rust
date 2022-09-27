@@ -13,7 +13,11 @@ Al instalar diesel_cli da un error. Se soluciona instalando solo la feature para
 ```rust
 cargo install diesel_cli --no-default-features --features mysql
 ```
-
+## Configurar .env
+Generamos un archivo .env con el siguiente contenido:
+```rust
+DATABASE_URL=mysql://usuario:contraseña@localhost/base_de_datos
+```
 ## Setup
 Ejecutamos el siguiente comando:
 
