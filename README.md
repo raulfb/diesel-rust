@@ -1,3 +1,11 @@
+## Diesel-rust
+Proyecto para probar Diesel.
+## Instalar diesel.
+
+Para instalar diesel hay que añadir la siguiente dependencia en el archivo Cargo.toml:
+```rust
+diesel = { version = "2.0.0", features = ["mysql"] }
+```
 
 ## Instalar diesel_cli
 
