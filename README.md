@@ -51,3 +51,13 @@ DROP TABLE usuarios
 ```
 
 ### Ejecutar una migración:
+
+```rust
+diesel migration run
+```
+
+### Eliminar una migración:
+
+```rust
+diesel migration redo
+```
