@@ -107,7 +107,6 @@ fn get_usuario(nombre_usuario:String){
     use self::schema::usuarios::dsl::*;
     let results = usuarios
         .filter(nombre.eq(&nombre_usuario))
-        .filter(id.eq(21))       
         .limit(1)
         .load::<Usuarios>(connection)
         .expect("Error obteniendo el usuario");
@@ -125,4 +124,56 @@ fn get_usuario(nombre_usuario:String){
         }
 }
 ```
+
+### Crear Usuario
+```rust
+fn crear_usuario(nombre:&String,apellidos:&String,activo:&bool){
+    let connection = &mut establecer_conexion_bc();
+    let nuevo_usuario = NuevoUsuario {nombre, apellidos,activo };
+
+    let usuario_creado=diesel::insert_into(usuarios::table)
+        .values(nuevo_usuario)
+        .execute(connection)
+        .expect("Error creando el usuario");
+    if usuario_creado==1{
+        println!("Usuario creado.");
+    }else{
+        println!("Se ha producido un error al crear el usuario");
+    }
+}
+```
+
+### Eliminar Usuario
+```rust
+fn eliminar_usuario(id_usuario:i32){
+    let connection = &mut  establecer_conexion_bc();
+    use self::schema::usuarios::dsl::*;
+    let usuario_eliminado = diesel::delete(usuarios.filter(id.eq(id_usuario)))
+    .execute(connection)
+    .expect("Error eliminando el usuario");
+    if usuario_eliminado==1{
+        println!("Usuario con id {} eliminado correctamente!",id_usuario);
+    }else{
+        println!("Se ha producido un error al eliminar el usuario con id {}",id_usuario)
+    }  
+}
+```
+
+### Actualizar Usuario
+```rust
+fn actualizar_usuario(id_usuario:i32){
+    use self::schema::usuarios::dsl::*;
+    let connection = &mut establecer_conexion_bc();
+    let usuario_actualizado=diesel::update(usuarios.filter(id.eq(id_usuario)))
+    .set((nombre.eq("James"), apellidos.eq("Not Bond")))
+    .execute(connection).unwrap();
+    if usuario_actualizado==1{
+        println!("Usuario con id {} actualizado correctamente!",id_usuario)
+    }else{
+        println!("Se ha producido un error al actualizar el usuario con id {}",id_usuario)
+    }
+}
+```
+
+
 
