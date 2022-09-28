@@ -11,5 +11,4 @@ path = "src/consulta.rs"
 
 [dependencies]
 diesel = { version = "2.0.0", features = ["mysql"] }
-# diesel = { version = "1.4.4", features = ["mysql"] }
 dotenv = "0.15.0" 

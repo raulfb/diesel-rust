@@ -75,7 +75,7 @@ fn crear_usuario(nombre:&String,apellidos:&String,activo:&bool){
     let usuario_creado=diesel::insert_into(usuarios::table)
         .values(nuevo_usuario)
         .execute(connection)
-        .expect("Error saving new post");
+        .expect("Error creando el usuario");
     if usuario_creado==1{
         println!("Usuario creado.");
     }else{
