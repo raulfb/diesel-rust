@@ -1,3 +1,4 @@
+use crate::schema::usuarios;
 use diesel::prelude::*;
 
 #[derive(Queryable)]
@@ -7,3 +8,12 @@ pub struct Usuarios {
     pub apellidos: String,
     pub activo: bool,
 }
+
+#[derive(Insertable)]
+#[diesel(table_name = usuarios)]
+pub struct NuevoUsuario<'a> {
+    pub nombre: &'a String,
+    pub apellidos: &'a String,
+    pub activo: &'a bool,
+}
+

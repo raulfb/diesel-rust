@@ -5,9 +5,16 @@ use self::rust_diesel::*;
 use self::models::*;
 use self::diesel::prelude::*;
 fn main(){
+
     // get_usuarios(); 
-    let id_usuario=10;
-    get_usuario(id_usuario);
+    // let id_usuario=1;
+    // get_usuario(id_usuario);
+    
+    let nombre= String::from("Zacarias");
+    let apellidos = String::from("Sanchez Martinez");
+    let activo= true;
+
+    crear_usuario(nombre,apellidos,activo);
 }
 
 
@@ -35,10 +42,10 @@ fn get_usuario(id_usuario:i32){
     use self::schema::usuarios::dsl::*;
     let results = usuarios
         .filter(id.eq(id_usuario))       
-        .limit(5)
+        .limit(1)
         .load::<Usuarios>(connection)
         .expect("Error obteniendo el usuario");
-        // println!("{:?}",results);
+
         if results.len()>0{
             let estado_usuario;
             if results[0].activo == true{
@@ -50,4 +57,12 @@ fn get_usuario(id_usuario:i32){
         }else{
             println!("No existe el usuario con id {}",id_usuario);
         }
+}
+
+
+fn crear_usuario(nombre:String,apellidos:String,activo:bool){
+    let connection = &mut establish_connection();
+    let usuario = create_user(connection, &nombre, &apellidos,&activo);
+    println!("Usuario guardado.");
+    println!("Datos del nuevo usuario: id: {} nombre: {} apellidos {} activo {}",usuario.id,usuario.nombre,usuario.apellidos,usuario.activo);
 }
