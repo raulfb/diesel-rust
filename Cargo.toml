@@ -1,9 +1,15 @@
 [package]
-name = "rust-diesel"
+name = "rust_diesel"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[[bin]]
+name = "rust_diesel"
+path = "src/consulta.rs"
+
 [dependencies]
 diesel = { version = "2.0.0", features = ["mysql"] }
+# diesel = { version = "1.4.4", features = ["mysql"] }
+dotenv = "0.15.0" 
