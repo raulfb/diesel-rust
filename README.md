@@ -78,7 +78,7 @@ pub fn establecer_conexion_bc() -> MysqlConnection {
 }
 ```
 
-### Get usuarios
+### Get Usuarios
 ```rust
 
 fn get_usuarios(){
@@ -98,6 +98,31 @@ fn get_usuarios(){
         }
         println!("Nombre usuario: {}, apellidos: {} , estado {} ",usuario.nombre,usuario.apellidos,estado_usuario);
     }
+}
+```
+### Get Usuario
+```rust
+fn get_usuario(nombre_usuario:String){
+    let connection = &mut establecer_conexion_bc();
+    use self::schema::usuarios::dsl::*;
+    let results = usuarios
+        .filter(nombre.eq(&nombre_usuario))
+        .filter(id.eq(21))       
+        .limit(1)
+        .load::<Usuarios>(connection)
+        .expect("Error obteniendo el usuario");
+
+        if results.len()>0{
+            let estado_usuario;
+            if results[0].activo == true{
+                estado_usuario="Activo".to_string();
+            }else{
+                estado_usuario="Inactivo".to_string();
+            }
+           println!("Nombre usuario: {}, apellidos: {} , estado {} ",results[0].nombre,results[0].apellidos,estado_usuario);
+        }else{
+            println!("No existe el usuario {}",nombre_usuario);
+        }
 }
 ```
 
