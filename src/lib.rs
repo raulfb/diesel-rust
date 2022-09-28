@@ -3,7 +3,6 @@ pub mod schema;
 
 use diesel::prelude::*;
 use dotenv::dotenv;
-// use schema::usuarios::nombre;
 use std::env;
 
 use self::models::{NuevoUsuario, Usuarios};
