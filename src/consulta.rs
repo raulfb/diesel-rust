@@ -15,8 +15,12 @@ fn main(){
     // let activo= true;
 
     // crear_usuario(nombre,apellidos,activo);
+
+    // let id_usuario=6;
+    // eliminar_usuario(id_usuario);
+
     let id_usuario=6;
-    eliminar_usuario(id_usuario);
+    actualizar_usuario(id_usuario);
 }
 
 
@@ -79,6 +83,16 @@ fn eliminar_usuario(id_usuario:i32){
         println!("Usuario con id {} eliminado correctamente!",id_usuario);
     }else{
         println!("Se ha producido un error al eliminar el usuario con id {}",id_usuario)
-    }
-   
+    }  
+}
+
+fn actualizar_usuario(id_usuario:i32){
+    use self::schema::usuarios::dsl::*;
+    let connection = &mut establish_connection();
+    diesel::update(usuarios.filter(id.eq(id_usuario)))
+    .set(apellidos.eq("Actualizado jeje".to_string()))
+    .execute(connection).unwrap();
+
+    println!("Usuario actualizado")
+
 }
