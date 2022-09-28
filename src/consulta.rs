@@ -10,11 +10,13 @@ fn main(){
     // let id_usuario=1;
     // get_usuario(id_usuario);
     
-    let nombre= String::from("Zacarias");
-    let apellidos = String::from("Sanchez Martinez");
-    let activo= true;
+    // let nombre= String::from("Zacarias");
+    // let apellidos = String::from("Sanchez Martinez");
+    // let activo= true;
 
-    crear_usuario(nombre,apellidos,activo);
+    // crear_usuario(nombre,apellidos,activo);
+    let id_usuario=6;
+    eliminar_usuario(id_usuario);
 }
 
 
@@ -63,6 +65,20 @@ fn get_usuario(id_usuario:i32){
 fn crear_usuario(nombre:String,apellidos:String,activo:bool){
     let connection = &mut establish_connection();
     let usuario = create_user(connection, &nombre, &apellidos,&activo);
-    println!("Usuario guardado.");
+    println!("Usuario creado.");
     println!("Datos del nuevo usuario: id: {} nombre: {} apellidos {} activo {}",usuario.id,usuario.nombre,usuario.apellidos,usuario.activo);
+}
+
+fn eliminar_usuario(id_usuario:i32){
+    let connection = &mut  establish_connection();
+    use self::schema::usuarios::dsl::*;
+    let usuario_eliminado = diesel::delete(usuarios.filter(id.eq(id_usuario)))
+    .execute(connection)
+    .expect("Error eliminando el usuario");
+    if usuario_eliminado==1{
+        println!("Usuario con id {} eliminado correctamente!",id_usuario);
+    }else{
+        println!("Se ha producido un error al eliminar el usuario con id {}",id_usuario)
+    }
+   
 }
