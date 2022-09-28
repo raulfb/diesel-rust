@@ -1,26 +1,28 @@
 extern crate rust_diesel;
 extern crate diesel;
+use crate::schema::usuarios;
 
 use self::rust_diesel::*;
 use self::models::*;
 use self::diesel::prelude::*;
+use self::models::{NuevoUsuario};
 fn main(){
 
     // get_usuarios(); 
     // let id_usuario=1;
     // get_usuario(id_usuario);
     
-    // let nombre= String::from("Zacarias");
-    // let apellidos = String::from("Sanchez Martinez");
-    // let activo= true;
+    let nombre= String::from("Zacarias");
+    let apellidos = String::from("Sanchez Martinez");
+    let activo= true;
 
-    // crear_usuario(nombre,apellidos,activo);
+    crear_usuario(&nombre,&apellidos,&activo);
 
     // let id_usuario=6;
     // eliminar_usuario(id_usuario);
 
-    let id_usuario=7;
-    actualizar_usuario(id_usuario);
+    // let id_usuario=7;
+    // actualizar_usuario(id_usuario);
 }
 
 
@@ -66,11 +68,19 @@ fn get_usuario(id_usuario:i32){
 }
 
 
-fn crear_usuario(nombre:String,apellidos:String,activo:bool){
+fn crear_usuario(nombre:&String,apellidos:&String,activo:&bool){
     let connection = &mut establish_connection();
-    let usuario = create_user(connection, &nombre, &apellidos,&activo);
-    println!("Usuario creado.");
-    println!("Datos del nuevo usuario: id: {} nombre: {} apellidos {} activo {}",usuario.id,usuario.nombre,usuario.apellidos,usuario.activo);
+    let nuevo_usuario = NuevoUsuario {nombre, apellidos,activo };
+
+    let usuario_creado=diesel::insert_into(usuarios::table)
+        .values(nuevo_usuario)
+        .execute(connection)
+        .expect("Error saving new post");
+    if usuario_creado==1{
+        println!("Usuario creado.");
+    }else{
+        println!("Se ha producido un error al crear el usuario");
+    }
 }
 
 fn eliminar_usuario(id_usuario:i32){

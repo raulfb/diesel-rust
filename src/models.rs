@@ -9,7 +9,7 @@ pub struct Usuarios {
     pub activo: bool,
 }
 
-#[derive(Insertable)]
+#[derive(Insertable,AsChangeset)]
 #[diesel(table_name = usuarios)]
 pub struct NuevoUsuario<'a> {
     pub nombre: &'a String,
