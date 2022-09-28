@@ -10,7 +10,7 @@ fn main(){
 
     // get_usuarios(); 
     // let id_usuario=7;
-    let nombre_usuario=String::from("Zacariass");
+    let nombre_usuario=String::from("Zacarias");
     get_usuario(nombre_usuario);
     
     // let nombre= String::from("Zacarias");
@@ -28,7 +28,7 @@ fn main(){
 
 
 fn get_usuarios(){
-    let connection = &mut establish_connection();
+    let connection = &mut establecer_conexion_bc();
     use self::schema::usuarios::dsl::*;
     let results = usuarios       
         .limit(5)
@@ -47,7 +47,7 @@ fn get_usuarios(){
 }
 
 fn get_usuario(nombre_usuario:String){
-    let connection = &mut establish_connection();
+    let connection = &mut establecer_conexion_bc();
     use self::schema::usuarios::dsl::*;
     let results = usuarios
         .filter(nombre.eq(&nombre_usuario))
@@ -71,7 +71,7 @@ fn get_usuario(nombre_usuario:String){
 
 
 fn crear_usuario(nombre:&String,apellidos:&String,activo:&bool){
-    let connection = &mut establish_connection();
+    let connection = &mut establecer_conexion_bc();
     let nuevo_usuario = NuevoUsuario {nombre, apellidos,activo };
 
     let usuario_creado=diesel::insert_into(usuarios::table)
@@ -86,7 +86,7 @@ fn crear_usuario(nombre:&String,apellidos:&String,activo:&bool){
 }
 
 fn eliminar_usuario(id_usuario:i32){
-    let connection = &mut  establish_connection();
+    let connection = &mut  establecer_conexion_bc();
     use self::schema::usuarios::dsl::*;
     let usuario_eliminado = diesel::delete(usuarios.filter(id.eq(id_usuario)))
     .execute(connection)
@@ -100,7 +100,7 @@ fn eliminar_usuario(id_usuario:i32){
 
 fn actualizar_usuario(id_usuario:i32){
     use self::schema::usuarios::dsl::*;
-    let connection = &mut establish_connection();
+    let connection = &mut establecer_conexion_bc();
     let usuario_actualizado=diesel::update(usuarios.filter(id.eq(id_usuario)))
     .set((nombre.eq("James"), apellidos.eq("Not Bond")))
     .execute(connection).unwrap();
