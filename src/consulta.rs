@@ -9,8 +9,9 @@ use self::models::{NuevoUsuario};
 fn main(){
 
     // get_usuarios(); 
-    // let id_usuario=1;
-    // get_usuario(id_usuario);
+    // let id_usuario=7;
+    let nombre_usuario=String::from("Zacariass");
+    get_usuario(nombre_usuario);
     
     // let nombre= String::from("Zacarias");
     // let apellidos = String::from("Sanchez Martinez");
@@ -21,8 +22,8 @@ fn main(){
     // let id_usuario=6;
     // eliminar_usuario(id_usuario);
 
-    let id_usuario=7;
-    actualizar_usuario(id_usuario);
+    // let id_usuario=7;
+    // actualizar_usuario(id_usuario);
 }
 
 
@@ -45,11 +46,12 @@ fn get_usuarios(){
     }
 }
 
-fn get_usuario(id_usuario:i32){
+fn get_usuario(nombre_usuario:String){
     let connection = &mut establish_connection();
     use self::schema::usuarios::dsl::*;
     let results = usuarios
-        .filter(id.eq(id_usuario))       
+        .filter(nombre.eq(&nombre_usuario))
+        .filter(id.eq(21))       
         .limit(1)
         .load::<Usuarios>(connection)
         .expect("Error obteniendo el usuario");
@@ -63,7 +65,7 @@ fn get_usuario(id_usuario:i32){
             }
            println!("Nombre usuario: {}, apellidos: {} , estado {} ",results[0].nombre,results[0].apellidos,estado_usuario);
         }else{
-            println!("No existe el usuario con id {}",id_usuario);
+            println!("No existe el usuario {}",nombre_usuario);
         }
 }
 
