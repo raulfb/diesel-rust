@@ -1,5 +1,5 @@
 ## Diesel-rust
-Proyecto para probar Diesel.
+CRUD realizado en Diesel.
 ## Instalar diesel.
 
 Para instalar diesel hay que añadir la siguiente dependencia en el archivo Cargo.toml:
