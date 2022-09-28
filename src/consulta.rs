@@ -12,17 +12,17 @@ fn main(){
     // let id_usuario=1;
     // get_usuario(id_usuario);
     
-    let nombre= String::from("Zacarias");
-    let apellidos = String::from("Sanchez Martinez");
-    let activo= true;
+    // let nombre= String::from("Zacarias");
+    // let apellidos = String::from("Sanchez Martinez");
+    // let activo= true;
 
-    crear_usuario(&nombre,&apellidos,&activo);
+    // crear_usuario(&nombre,&apellidos,&activo);
 
     // let id_usuario=6;
     // eliminar_usuario(id_usuario);
 
-    // let id_usuario=7;
-    // actualizar_usuario(id_usuario);
+    let id_usuario=7;
+    actualizar_usuario(id_usuario);
 }
 
 
@@ -100,7 +100,7 @@ fn actualizar_usuario(id_usuario:i32){
     use self::schema::usuarios::dsl::*;
     let connection = &mut establish_connection();
     let usuario_actualizado=diesel::update(usuarios.filter(id.eq(id_usuario)))
-    .set(apellidos.eq("AAAAAA BBCCCCC".to_string()))
+    .set((nombre.eq("James"), apellidos.eq("Not Bond")))
     .execute(connection).unwrap();
     if usuario_actualizado==1{
         println!("Usuario con id {} actualizado correctamente!",id_usuario)
