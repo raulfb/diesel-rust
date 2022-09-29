@@ -63,6 +63,10 @@ diesel migration run
 ### Eliminar una migración:
 
 ```rust
+diesel migration revert
+```
+### Elimina una migracion y la vuelve a ejecutar de nuevo
+```rust
 diesel migration redo
 ```
 ## Código
